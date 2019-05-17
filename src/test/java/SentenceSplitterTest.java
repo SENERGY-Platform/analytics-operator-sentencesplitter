@@ -1,4 +1,5 @@
 import org.infai.seits.sepl.operators.Message;
+import org.json.JSONArray;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -14,9 +15,9 @@ public class SentenceSplitterTest {
             tsc.config(m);
             tsc.run(m);
             m.addInput("words");
-            String actual = m.getMessageString().split("\\[")[1].split("]")[0];
-            String expected = "\\\"Lorem\\\", \\\"ipsum\\\", \\\"dolor\\\", \\\"sit\\\", \\\"amet\\\", \\\"consetetur\\\", \\\"sadipscing\\\", \\\"elitr\\\", \\\"sed\\\", \\\"diam\\\"";
-
+            String actual = new JSONArray(m.getMessageString().split("words\":")[1].split("]")[0]+"]").toString();
+            m.addInput("compare");
+            String expected = m.getInput("compare").getJSONArray().toString();
             Assert.assertEquals(expected, actual);
         }
     }

@@ -35,6 +35,7 @@ public class TestMessageProvider {
                 .put("FilterValue", "1")
                 .put("Mappings", new JSONArray()
                         .put(new JSONObject().put("Source", "value.reading.sentence").put("Dest", "sentence"))
+                        .put(new JSONObject().put("Source", "value.reading.compare").put("Dest", "compare"))
                 )));
         return config;
     }
