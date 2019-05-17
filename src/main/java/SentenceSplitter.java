@@ -17,6 +17,7 @@
 import org.apache.commons.lang3.StringUtils;
 import org.infai.seits.sepl.operators.Message;
 import org.infai.seits.sepl.operators.OperatorInterface;
+import org.json.JSONArray;
 
 import java.util.HashMap;
 
@@ -26,14 +27,13 @@ public class SentenceSplitter implements OperatorInterface {
     public void run(Message message) {
         String sentence = message.getInput("sentence").getString();
         String[] words = sentence.split("(\\W+)");
-        String wordsS = "[";
+        JSONArray wordsArray = new JSONArray();
 
         for(String s: words){
-            wordsS += "\"" + s + "\"" + ", ";
+            wordsArray = wordsArray.put(s);
         }
-        wordsS = StringUtils.chop(StringUtils.chop(wordsS));
-        wordsS += "]";
-        message.output("words", wordsS);
+
+        message.output("words", wordsArray);
     }
 
     @Override
